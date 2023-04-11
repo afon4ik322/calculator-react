@@ -44,3 +44,5 @@ export const BUTTONS = [
 ];
 
 export const OPERATORS = BUTTONS.filter((el) => el.type === ButtonType.operator).map((el) => el.value);
+
+export const NUMBERS = BUTTONS.filter((el) => el.type === ButtonType.number).map((el) => el.value);

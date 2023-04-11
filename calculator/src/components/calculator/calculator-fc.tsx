@@ -7,7 +7,6 @@ import S from './calculator.styled';
 const CalculatorFC = () => {
   const [result, setResult] = useState('0');
   const [calculationsInput, setCalculationsInput] = useState('');
-  const [currentNumber, setCurrentNumber] = useState('');
 
   return (
     <S.container>
@@ -16,8 +15,7 @@ const CalculatorFC = () => {
         <KeypadFC
           calculationsInput={calculationsInput}
           setCalculationsInput={setCalculationsInput}
-          currentNumber={currentNumber}
-          setCurrentNumber={setCurrentNumber}
+          result={result}
           setResult={setResult}
         />
       </S.leftContainer>
