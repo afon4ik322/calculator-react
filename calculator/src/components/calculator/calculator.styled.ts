@@ -8,7 +8,7 @@ const S = {
   `,
   leftContainer: styled.div`
     width: 70%;
-    border-right: 1px solid black;
+    border-right: 1px solid ${({ theme }) => theme.text};
     padding-right: 10px;
   `,
   rightContainer: styled.div`

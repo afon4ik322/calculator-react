@@ -6,17 +6,19 @@ const S = {
     justify-content: space-between;
     padding-bottom: 10px;
     font-size: 24px;
+    height: 30px;
   `,
   calculatorInput: styled.input`
     font-size: 24px;
     border: 0;
     width: 100%;
+    color: ${({ theme }) => theme.text};
     &:focus {
       outline: none;
     }
     &:disabled {
       background-color: transparent;
-      color: black;
+      color: ${({ theme }) => theme.text};
     }
   `,
 };

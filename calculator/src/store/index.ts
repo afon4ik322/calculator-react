@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { history } from './slices/history-slice';
+import { theme } from './slices/theme-slice';
 
 export const store = configureStore({
   reducer: {
     history,
+    theme,
   },
 });
 

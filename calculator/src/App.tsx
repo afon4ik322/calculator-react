@@ -1,15 +1,19 @@
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { LinkAddress } from './constants/constants';
-import { Provider } from 'react-redux';
-import { store } from './store';
+import { useAppSelector } from './store';
 
 import CalculatorFCPage from './pages/calculator-fc-page/calculator-fc-page';
 import SettingsFCPage from './pages/settings-fc-page/settings-fc-page';
 import Layout from './components/layout/layout';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle } from './styles/global-style';
 
 function App() {
+  const theme = useAppSelector((state) => state.theme.theme);
+
   return (
-    <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <HashRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
@@ -22,7 +26,7 @@ function App() {
           </Route>
         </Routes>
       </HashRouter>
-    </Provider>
+    </ThemeProvider>
   );
 }
 

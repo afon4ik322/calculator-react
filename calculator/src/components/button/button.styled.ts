@@ -1,9 +1,9 @@
 import styled from 'styled-components';
+import { styles } from '../../styles/global-style';
 
 const S = {
   button: styled.button`
-    border: 1px solid black;
-    border-radius: 5px;
+    ${styles.button};
   `,
 };
 

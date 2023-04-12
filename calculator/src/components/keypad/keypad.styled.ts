@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const S = {
   container: styled.div`
-    border-top: 1px solid black;
+    border-top: 1px solid ${({ theme }) => theme.text};
     padding-top: 10px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
