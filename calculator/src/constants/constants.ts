@@ -41,8 +41,10 @@ export const BUTTONS = [
   { value: '0', type: ButtonType.number },
   { value: ')', type: ButtonType.bracket },
   { value: 'CE', type: ButtonType.operation },
+  { value: '%', type: ButtonType.operator },
+  { value: '±', type: ButtonType.operation },
 ];
 
 export const OPERATORS = BUTTONS.filter((el) => el.type === ButtonType.operator).map((el) => el.value);
-
 export const NUMBERS = BUTTONS.filter((el) => el.type === ButtonType.number).map((el) => el.value);
+export const BRACKETS = BUTTONS.filter((el) => el.type === ButtonType.bracket).map((el) => el.value);

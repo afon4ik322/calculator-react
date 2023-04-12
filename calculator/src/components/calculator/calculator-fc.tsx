@@ -11,7 +11,7 @@ const CalculatorFC = () => {
   return (
     <S.container>
       <S.leftContainer>
-        <DisplayFC result={result} calculationsInput={calculationsInput} />
+        <DisplayFC result={result} calculationsInput={calculationsInput} setCalculationsInput={setCalculationsInput} />
         <KeypadFC
           calculationsInput={calculationsInput}
           setCalculationsInput={setCalculationsInput}
