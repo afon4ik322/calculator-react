@@ -3,7 +3,6 @@ import styled from 'styled-components';
 const S = {
   container: styled.section`
     display: flex;
-    /* width: 80vw; */
     justify-content: center;
   `,
   leftContainer: styled.div`

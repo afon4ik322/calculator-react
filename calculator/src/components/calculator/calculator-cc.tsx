@@ -3,6 +3,7 @@ import S from './calculator.styled';
 import DisplayCC from '../display/display-cc';
 import KeypadCC from '../keypad/keypad-cc';
 import HistoryCC from '../history/history-cc';
+import ErrorBoundary from '../error-boundary/error-boundary';
 
 class CalculatorCC extends Component<{}, { result: string; calculationsInput: string }> {
   constructor(props: {}) {
@@ -24,24 +25,26 @@ class CalculatorCC extends Component<{}, { result: string; calculationsInput: st
     const { result, calculationsInput } = this.state;
 
     return (
-      <S.container>
-        <S.leftContainer>
-          <DisplayCC
-            result={result}
-            calculationsInput={calculationsInput}
-            setCalculationsInput={setCalculationsInput}
-          />
-          <KeypadCC
-            calculationsInput={calculationsInput}
-            setCalculationsInput={setCalculationsInput}
-            result={result}
-            setResult={setResult}
-          />
-        </S.leftContainer>
-        <S.rightContainer>
-          <HistoryCC />
-        </S.rightContainer>
-      </S.container>
+      <ErrorBoundary>
+        <S.container>
+          <S.leftContainer>
+            <DisplayCC
+              result={result}
+              calculationsInput={calculationsInput}
+              setCalculationsInput={setCalculationsInput}
+            />
+            <KeypadCC
+              calculationsInput={calculationsInput}
+              setCalculationsInput={setCalculationsInput}
+              result={result}
+              setResult={setResult}
+            />
+          </S.leftContainer>
+          <S.rightContainer>
+            <HistoryCC />
+          </S.rightContainer>
+        </S.container>
+      </ErrorBoundary>
     );
   }
 }

@@ -15,6 +15,7 @@ interface KeypadPropsType {
 
 const KeypadFC: FC<KeypadPropsType> = ({ calculationsInput, setCalculationsInput, result, setResult }) => {
   const [currentNumber, setCurrentNumber] = useState('');
+  const [error, setError] = useState('');
   const dispatch = useAppDispatch();
 
   const keypadHandler = (value: string, type: string) => {
@@ -43,8 +44,12 @@ const KeypadFC: FC<KeypadPropsType> = ({ calculationsInput, setCalculationsInput
             setCalculationsInput('');
             break;
           case '=':
-            calculateResult(calculationsInput, setCalculationsInput, setResult, (str: string) =>
-              dispatch(addHistory(str))
+            calculateResult(
+              calculationsInput,
+              setCalculationsInput,
+              setResult,
+              (str: string) => dispatch(addHistory(str)),
+              setError
             );
             setCurrentNumber('');
         }
@@ -65,6 +70,8 @@ const KeypadFC: FC<KeypadPropsType> = ({ calculationsInput, setCalculationsInput
       }
     }
   };
+
+  if (error) throw new Error(error);
 
   return (
     <S.container>

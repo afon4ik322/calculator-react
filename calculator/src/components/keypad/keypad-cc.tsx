@@ -18,20 +18,25 @@ const mapDispatchToProps = {
   addHistory,
 };
 
-class KeypadCC extends Component<KeypadPropsType, { currentNumber: string }> {
+class KeypadCC extends Component<KeypadPropsType, { currentNumber: string; error: string }> {
   constructor(props: KeypadPropsType) {
     super(props);
     this.state = {
       currentNumber: '',
+      error: '',
     };
   }
 
   render() {
     const { calculationsInput, setCalculationsInput, result, setResult, addHistory } = this.props;
-    const { currentNumber } = this.state;
+    const { currentNumber, error } = this.state;
 
     const setCurrentNumber = (str: string) => {
       this.setState({ currentNumber: str });
+    };
+
+    const setError = (err: string) => {
+      this.setState({ error: err });
     };
 
     const keypadHandler = (value: string, type: string) => {
@@ -60,8 +65,9 @@ class KeypadCC extends Component<KeypadPropsType, { currentNumber: string }> {
               setCalculationsInput('');
               break;
             case '=':
-              calculateResult(calculationsInput, setCalculationsInput, setResult, addHistory);
+              calculateResult(calculationsInput, setCalculationsInput, setResult, addHistory, setError);
               setCurrentNumber('');
+              break;
           }
           break;
         case ButtonType.dot: {
@@ -80,6 +86,9 @@ class KeypadCC extends Component<KeypadPropsType, { currentNumber: string }> {
         }
       }
     };
+
+    if (error) throw new Error(error);
+
     return (
       <S.container>
         {BUTTONS.map((button) => (

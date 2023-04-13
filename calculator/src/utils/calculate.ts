@@ -4,14 +4,14 @@ export const calculateResult = (
   input: string,
   setInput: (str: string) => void,
   setResult: (str: string) => void,
-  addHistory: (str: string) => void
+  addHistory: (str: string) => void,
+  setError: (err: any) => void
 ) => {
   try {
     setResult(calculateResultFunc(input));
     addHistory(`${input} = ${calculateResultFunc(input)}`);
   } catch (e) {
-    console.log(e);
-    setResult('Error');
+    setError(e);
   } finally {
     setInput('');
   }
@@ -22,7 +22,7 @@ const parseString = (str: string): Array<string | number> => {
   const arr = str.split('');
 
   if (!(OPERATORS.findIndex((el) => el === arr[arr.length - 1]) === -1)) {
-    throw new Error('Error: You ended the expression with an operator.');
+    throw new Error('You ended the expression with an operator.');
   }
 
   const modifiedArr = [];
@@ -78,7 +78,7 @@ function bracketOperations(stack: Array<string | number>): Array<string | number
   const bracketEnd = stack.findIndex((el) => el === ')');
 
   if (bracketEnd === -1) {
-    throw new Error("Error: you didn't close the bracket");
+    throw new Error("You didn't close the bracket");
   }
   let arr = stack.slice(bracketStart + 1, bracketEnd);
   arr = priorityOperations(arr);
