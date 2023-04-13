@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import S from './display.styled';
 
-interface DisplayPropsType {
+export interface DisplayPropsType {
   result: string;
   calculationsInput: string;
-  setCalculationsInput: React.Dispatch<React.SetStateAction<string>>;
+  setCalculationsInput: (str: string) => void;
 }
 
 const DisplayFC: FC<DisplayPropsType> = ({ result, calculationsInput, setCalculationsInput }) => {

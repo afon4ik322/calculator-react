@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface HistoryStateType {
+export interface HistoryStateType {
   history: string[];
 }
 

@@ -1,4 +1,4 @@
-import ControlPanelFC from '../../components/control-panel/control-panel';
+import ControlPanelFC from '../../components/control-panel/control-panel-fc';
 
 const SettingsFCPage = () => {
   return (

@@ -13,6 +13,7 @@ const S = {
     border: 0;
     width: 100%;
     color: ${({ theme }) => theme.text};
+    background-color: transparent;
     &:focus {
       outline: none;
     }

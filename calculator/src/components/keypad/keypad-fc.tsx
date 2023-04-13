@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../store';
 import { calculateResult } from '../../utils/calculate';
 import CalculatorButtonFC from '../button/button-fc';
 import S from './keypad.styled';
+import { addHistory } from '../../store/slices/history-slice';
 
 interface KeypadPropsType {
   calculationsInput: string;
@@ -42,7 +43,9 @@ const KeypadFC: FC<KeypadPropsType> = ({ calculationsInput, setCalculationsInput
             setCalculationsInput('');
             break;
           case '=':
-            calculateResult(calculationsInput, setCalculationsInput, setResult, dispatch);
+            calculateResult(calculationsInput, setCalculationsInput, setResult, (str: string) =>
+              dispatch(addHistory(str))
+            );
             setCurrentNumber('');
         }
         break;

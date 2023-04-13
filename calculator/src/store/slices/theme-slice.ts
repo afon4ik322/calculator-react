@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ThemeType, darkTheme, lightTheme } from '../../styles/theme';
 
-interface ThemeState {
+export interface ThemeStateType {
   themeName: 'light' | 'dark';
   theme: ThemeType;
 }
 
-const initialState: ThemeState = {
+const initialState: ThemeStateType = {
   themeName: 'light',
   theme: lightTheme,
 };

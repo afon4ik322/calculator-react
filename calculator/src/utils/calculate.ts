@@ -1,15 +1,14 @@
 import { BRACKETS, NUMBERS, OPERATORS } from '../constants/constants';
-import { addHistory } from '../store/slices/history-slice';
 
 export const calculateResult = (
   input: string,
-  setInput: React.Dispatch<React.SetStateAction<string>>,
-  setResult: React.Dispatch<React.SetStateAction<string>>,
-  dispatch: any
+  setInput: (str: string) => void,
+  setResult: (str: string) => void,
+  addHistory: (str: string) => void
 ) => {
   try {
     setResult(calculateResultFunc(input));
-    dispatch(addHistory(`${input} = ${calculateResultFunc(input)}`));
+    addHistory(`${input} = ${calculateResultFunc(input)}`);
   } catch (e) {
     console.log(e);
     setResult('Error');
