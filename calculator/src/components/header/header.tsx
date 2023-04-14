@@ -6,10 +6,18 @@ const Header = () => {
     <S.container>
       <S.title>Calculator App</S.title>
       <S.linksList>
-        <S.link to={'/' + LinkAddress.homefc}>{LinkName.homefc}</S.link>
-        <S.link to={'/' + LinkAddress.homecc}>{LinkName.homecc}</S.link>
-        <S.link to={'/' + LinkAddress.settingsfc}>{LinkName.settingsfc}</S.link>
-        <S.link to={'/' + LinkAddress.settingscc}>{LinkName.settingscc}</S.link>
+        <S.link to={'/' + LinkAddress.homefc} data-test-id={LinkAddress.homefc}>
+          {LinkName.homefc}
+        </S.link>
+        <S.link to={'/' + LinkAddress.homecc} data-test-id={LinkAddress.homecc}>
+          {LinkName.homecc}
+        </S.link>
+        <S.link to={'/' + LinkAddress.settingsfc} data-test-id={LinkAddress.settingsfc}>
+          {LinkName.settingsfc}
+        </S.link>
+        <S.link to={'/' + LinkAddress.settingscc} data-test-id={LinkAddress.settingscc}>
+          {LinkName.settingscc}
+        </S.link>
       </S.linksList>
     </S.container>
   );

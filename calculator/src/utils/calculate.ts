@@ -141,5 +141,7 @@ const calculateResultFunc = (str: string): string => {
   const calculated = calculateByOperators(arr);
   const result = Math.round(calculated * 1000) / 1000;
 
+  if (Number.isNaN(result)) throw new Error("Can't calculate");
+
   return result.toString();
 };

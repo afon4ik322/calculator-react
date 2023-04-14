@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { styles } from '../../styles/global-style';
 
 const S = {
   container: styled.div`
@@ -10,7 +9,7 @@ const S = {
     background-color: ${({ theme }) => theme.gray[2]};
     padding: 30px;
     color: #fff;
-    width: 80vw;
+    width: 80%;
     margin: 0 auto;
     border-radius: 10px;
   `,

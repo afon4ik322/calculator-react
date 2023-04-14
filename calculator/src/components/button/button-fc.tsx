@@ -7,7 +7,9 @@ export interface CalculatorButtonProps {
 }
 
 const CalculatorButtonFC = ({ value, type, keypadHandler }: CalculatorButtonProps) => (
-  <S.button onClick={() => keypadHandler(value, type)}>{value}</S.button>
+  <S.button data-test-id='calculator-button' onClick={() => keypadHandler(value, type)}>
+    {value}
+  </S.button>
 );
 
 export default CalculatorButtonFC;
