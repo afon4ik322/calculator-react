@@ -9,9 +9,13 @@ const HistoryFC: FC = () => {
   return (
     <>
       <S.header>History</S.header>
-      <S.list>
+      <S.list data-test-id='history-list'>
         {history.length ? (
-          history.map((historyItem) => <li key={uuidv4()}>{historyItem}</li>)
+          history.map((historyItem) => (
+            <li key={uuidv4()} data-test-id='history-item'>
+              {historyItem}
+            </li>
+          ))
         ) : (
           <li>History is empty</li>
         )}

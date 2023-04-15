@@ -53,6 +53,10 @@ class CalculatorCC extends Component<CalculatorCCProps, CalculatorCCState> {
       this.setState({ currentNumber: str });
     };
 
+    const onInputChange = (str: string) => {
+      this.setState({ currentNumber: '', calculationsInput: str });
+    };
+
     const keypadHandler = (value: string, type: string) => {
       switch (type) {
         case ButtonType.number:
@@ -99,8 +103,16 @@ class CalculatorCC extends Component<CalculatorCCProps, CalculatorCCState> {
               }));
               break;
             case '=':
-              calculateResult(calculationsInput + currentNumber, setCalculationsInput, setResult, addHistory, setError);
-              setCurrentNumber('');
+              if (!((calculationsInput + currentNumber).length === 0)) {
+                calculateResult(
+                  calculationsInput + currentNumber,
+                  setCalculationsInput,
+                  setResult,
+                  addHistory,
+                  setError
+                );
+                setCurrentNumber('');
+              }
               break;
             case '±':
               setCurrentNumber(
@@ -145,8 +157,8 @@ class CalculatorCC extends Component<CalculatorCCProps, CalculatorCCState> {
           <DisplayCC
             result={result}
             calculationsInput={calculationsInput}
-            setCalculationsInput={setCalculationsInput}
             currentNumber={currentNumber}
+            onInputChange={onInputChange}
           />
           <KeypadCC keypadHandler={keypadHandler} />
         </S.leftContainer>

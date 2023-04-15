@@ -1,42 +1,49 @@
+import { navigationTest, changeThemeTest, historyTest, keypadTest, arithmeticTest } from './functions.cy';
+
 describe('General Tests', () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
   it('Navigation', () => {
-    cy.get('[data-test-id=homefc]').click();
-    cy.url().should('include', '/homefc');
-    cy.get('[data-test-id=homefc-page]');
-
-    cy.get('[data-test-id=homecc]').click();
-    cy.url().should('include', '/homecc');
-    cy.get('[data-test-id=homecc-page]');
-
-    cy.get('[data-test-id=settingsfc]').click();
-    cy.url().should('include', '/settingsfc');
-    cy.get('[data-test-id=settingsfc-page]');
-
-    cy.get('[data-test-id=settingscc]').click();
-    cy.url().should('include', '/settingscc');
-    cy.get('[data-test-id=settingscc-page]');
+    navigationTest();
   });
 
-  it('Change theme', () => {
-    const lightBackground = 'rgb(255, 255, 255)';
-    const darkBackground = 'rgb(25, 25, 26)';
+  it('Change theme FC', () => {
+    changeThemeTest('fc');
+  });
 
-    cy.get('[data-test-id=settingsfc]').click();
-    cy.url().should('include', '/settingsfc');
-    cy.get('#theme-select').select('Dark');
-    cy.get('body').should('have.css', 'background-color', darkBackground);
-    cy.get('#theme-select').select('Light');
-    cy.get('body').should('have.css', 'background-color', lightBackground);
+  it('Change theme FC', () => {
+    changeThemeTest('cc');
+  });
 
-    cy.get('[data-test-id=settingscc]').click();
-    cy.url().should('include', '/settingscc');
-    cy.get('#theme-select').select('Dark');
-    cy.get('body').should('have.css', 'background-color', darkBackground);
-    cy.get('#theme-select').select('Light');
-    cy.get('body').should('have.css', 'background-color', lightBackground);
+  it('History FC (Filling and cleaning)', () => {
+    historyTest('fc');
+  });
+
+  it('History CC (Filling and cleaning)', () => {
+    historyTest('cc');
+  });
+});
+
+describe('Calculator Test', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  it('Keypad FC', () => {
+    keypadTest('fc');
+  });
+
+  it('Arithmetic operations FC', () => {
+    arithmeticTest('fc');
+  });
+
+  it('Keypad CC', () => {
+    keypadTest('cc');
+  });
+
+  it('Arithmetic operations CC', () => {
+    arithmeticTest('cc');
   });
 });

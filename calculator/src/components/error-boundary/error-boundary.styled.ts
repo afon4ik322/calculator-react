@@ -14,10 +14,14 @@ const S = {
     border-radius: 10px;
   `,
   button: styled.button`
+    margin: 10px 0;
     padding: 5px 20px;
     &:hover {
       cursor: pointer;
     }
+  `,
+  header: styled.h3`
+    margin: 10px 0;
   `,
 };
 

@@ -1,4 +1,4 @@
-import { BRACKETS, NUMBERS, OPERATORS } from '../constants/constants';
+import { BRACKETS, ErrorMessage, NUMBERS, OPERATORS } from '../constants/constants';
 
 export const calculateResult = (
   input: string,
@@ -22,11 +22,11 @@ const parseString = (str: string): Array<string | number> => {
   const arr = str.split('');
 
   arr.forEach((item) => {
-    if (!'1234567890()+-*÷%.'.includes(item)) throw new Error('You entered an unsupported character');
+    if (!'1234567890()+-*÷/%.'.includes(item)) throw new Error(ErrorMessage.unsupported);
   });
 
   if (!(OPERATORS.findIndex((el) => el === arr[arr.length - 1]) === -1)) {
-    throw new Error('You ended the expression with an operator.');
+    throw new Error(ErrorMessage.operator);
   }
 
   const modifiedArr = [];
@@ -68,6 +68,7 @@ const calculateByOperators = (arr: Array<string | number>) => {
   if (
     !(stack.findIndex((el) => el === '*') === -1) ||
     !(stack.findIndex((el) => el === '÷') === -1) ||
+    !(stack.findIndex((el) => el === '/') === -1) ||
     !(stack.findIndex((el) => el === '%') === -1)
   ) {
     priorityOperations(stack);
@@ -100,9 +101,7 @@ function bracketOperations(stack: Array<string | number>): Array<string | number
     return acc;
   }, initialReduceValueClose);
 
-  console.log(closeBrackets);
-
-  if (openBrackets.length > closeBrackets.length) throw new Error("You didn't close the bracket");
+  if (openBrackets.length > closeBrackets.length) throw new Error(ErrorMessage.bracket);
   if (closeBrackets.length === 0) return stack;
 
   for (let i = 0; i < closeBrackets.length; i++) {
@@ -127,7 +126,7 @@ function priorityOperations(stack: Array<string | number>): Array<string | numbe
     return stack;
   }
   for (let i = 0; i < stack.length; i++) {
-    if (!(['*', '÷', '%'].findIndex((el) => el === stack[i]) === -1)) {
+    if (!(['*', '÷', '/', '%'].findIndex((el) => el === stack[i]) === -1)) {
       let num = calculateIntermediateResult([stack[i - 1], stack[i], stack[i + 1]]);
       stack.splice(i - 1, 3, num);
       i -= 2;
@@ -162,6 +161,9 @@ function calculateIntermediateResult(arr: Array<string | number>): number {
         case '÷':
           result = division(result, Number(arr[i + 1]));
           break;
+        case '/':
+          result = division(result, Number(arr[i + 1]));
+          break;
         case '%':
           result = remainder(result, Number(arr[i + 1]));
           break;
@@ -179,7 +181,7 @@ const calculateResultFunc = (str: string): string => {
   const calculated = calculateByOperators(arr);
   const result = Math.round(calculated * 1000) / 1000;
 
-  if (Number.isNaN(result)) throw new Error("Can't calculate");
+  if (Number.isNaN(result)) throw new Error(ErrorMessage.calculationError);
 
   return result.toString();
 };
