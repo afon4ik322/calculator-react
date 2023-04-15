@@ -21,6 +21,10 @@ export const calculateResult = (
 const parseString = (str: string): Array<string | number> => {
   const arr = str.split('');
 
+  arr.forEach((item) => {
+    if (!'1234567890()+-*÷%.'.includes(item)) throw new Error('You entered an unsupported character');
+  });
+
   if (!(OPERATORS.findIndex((el) => el === arr[arr.length - 1]) === -1)) {
     throw new Error('You ended the expression with an operator.');
   }
@@ -74,20 +78,43 @@ const calculateByOperators = (arr: Array<string | number>) => {
 
 // BRACKET OPERATION
 function bracketOperations(stack: Array<string | number>): Array<string | number> {
-  const bracketStart = stack.findIndex((el) => el === '(');
-  const bracketEnd = stack.findIndex((el) => el === ')');
-
-  if (bracketEnd === -1) {
-    throw new Error("You didn't close the bracket");
+  interface InitialReduceValue {
+    el: '(' | ')';
+    i: number;
   }
-  let arr = stack.slice(bracketStart + 1, bracketEnd);
-  arr = priorityOperations(arr);
-  let num = calculateIntermediateResult(arr);
-  stack.splice(bracketStart, bracketEnd + 1, num);
 
-  // ПОВТОРНЫЙ ПОИСК СКОБОК ~ РЕКУРСИЯ
-  if (!(stack.findIndex((el) => el === '(') === -1)) {
-    bracketOperations(stack);
+  const initialReduceValueOpen: InitialReduceValue[] = [];
+  const initialReduceValueClose: InitialReduceValue[] = [];
+
+  const openBrackets = stack.reduce((acc, el, i) => {
+    if (el === '(') {
+      acc.push({ el, i });
+    }
+    return acc;
+  }, initialReduceValueOpen);
+
+  const closeBrackets: Array<InitialReduceValue> = stack.reduce((acc, el, i) => {
+    if (el === ')') {
+      acc.push({ el, i });
+    }
+    return acc;
+  }, initialReduceValueClose);
+
+  console.log(closeBrackets);
+
+  if (openBrackets.length > closeBrackets.length) throw new Error("You didn't close the bracket");
+  if (closeBrackets.length === 0) return stack;
+
+  for (let i = 0; i < closeBrackets.length; i++) {
+    for (let j = openBrackets.length - 1; j >= 0; j--) {
+      if (closeBrackets[i].i > openBrackets[j].i) {
+        const arr = stack.slice(openBrackets[j].i + 1, closeBrackets[i].i);
+        const num = calculateIntermediateResult(priorityOperations(arr));
+        stack.splice(openBrackets[j].i, closeBrackets[i].i - openBrackets[j].i + 1, num);
+        // ПОВТОРНЫЙ ПОИСК СКОБОК ~ РЕКУРСИЯ
+        return bracketOperations(stack);
+      }
+    }
   }
 
   return stack;
@@ -95,6 +122,10 @@ function bracketOperations(stack: Array<string | number>): Array<string | number
 
 // PRIORITY OPERATIONS (*, /, %)
 function priorityOperations(stack: Array<string | number>): Array<string | number> {
+  // ПРОВЕРКА НА 1 ЧИСЛО И МИНУС
+  if (stack.length < 3) {
+    return stack;
+  }
   for (let i = 0; i < stack.length; i++) {
     if (!(['*', '÷', '%'].findIndex((el) => el === stack[i]) === -1)) {
       let num = calculateIntermediateResult([stack[i - 1], stack[i], stack[i + 1]]);
@@ -102,11 +133,18 @@ function priorityOperations(stack: Array<string | number>): Array<string | numbe
       i -= 2;
     }
   }
+
   return stack;
 }
 
 //CALCULATE INTERMEDIATE RESULT
 function calculateIntermediateResult(arr: Array<string | number>): number {
+  // ПРОВЕРКА НА 1 ЧИСЛО И МИНУС
+  if (arr[0] === '-') {
+    let item = arr[0] + arr[1];
+    arr.splice(0, 1, item);
+  }
+
   let result = Number(arr[0]);
 
   for (let i = 1; i < arr.length; i++) {

@@ -11,11 +11,19 @@ interface KeypadPropsType {
   setCalculationsInput: React.Dispatch<React.SetStateAction<string>>;
   result: string;
   setResult: React.Dispatch<React.SetStateAction<string>>;
+  currentNumber: string;
+  setCurrentNumber: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const KeypadFC: FC<KeypadPropsType> = ({ calculationsInput, setCalculationsInput, result, setResult }) => {
-  const [currentNumber, setCurrentNumber] = useState('');
-  const [error, setError] = useState('');
+const KeypadFC: FC<KeypadPropsType> = ({
+  calculationsInput,
+  setCalculationsInput,
+  result,
+  setResult,
+  currentNumber,
+  setCurrentNumber,
+}) => {
+  const [error, setError] = useState<string>('');
   const dispatch = useAppDispatch();
 
   const keypadHandler = (value: string, type: string) => {
@@ -23,21 +31,23 @@ const KeypadFC: FC<KeypadPropsType> = ({ calculationsInput, setCalculationsInput
       case ButtonType.number:
         result && setResult('');
         setCurrentNumber((prev) => prev + value);
-        setCalculationsInput((prev) => prev + value);
         break;
       case ButtonType.operator: {
-        if (!(calculationsInput.length === 0)) {
-          !OPERATORS.some((el) => el === calculationsInput[calculationsInput.length - 1])
+        setCalculationsInput((prev) => prev + currentNumber);
+        setCurrentNumber('');
+        if (!(calculationsInput.length === 0) || !(currentNumber.length === 0)) {
+          !OPERATORS.some((el) => el === calculationsInput[calculationsInput.length - 1] && currentNumber.length === 0)
             ? setCalculationsInput((prev) => prev + value)
             : setCalculationsInput((prev) => prev.slice(0, -1) + value);
         }
-        setCurrentNumber('');
         break;
       }
       case ButtonType.operation:
         switch (value) {
           case 'CE':
-            setCalculationsInput((prev) => prev.slice(0, -1));
+            currentNumber.length > 0
+              ? setCurrentNumber((prev) => prev.slice(0, -1))
+              : setCalculationsInput((prev) => prev.slice(0, -1));
             break;
           case 'C':
             setCurrentNumber('');
@@ -45,27 +55,35 @@ const KeypadFC: FC<KeypadPropsType> = ({ calculationsInput, setCalculationsInput
             break;
           case '=':
             calculateResult(
-              calculationsInput,
+              calculationsInput + currentNumber,
               setCalculationsInput,
               setResult,
               (str: string) => dispatch(addHistory(str)),
               setError
             );
             setCurrentNumber('');
+            break;
+          case '±':
+            setCurrentNumber((prev) => (prev.length > 0 && !(prev[1] === '-') ? `(-${prev})` : prev.slice(2, -1)));
+            break;
         }
         break;
       case ButtonType.dot: {
         if (currentNumber === '') {
-          setCalculationsInput((prev) => prev + '0.');
-          setCurrentNumber((prev) => prev + '0.');
+          setCurrentNumber('0.');
         } else if (!currentNumber.includes('.')) {
-          setCalculationsInput((prev) => prev + value);
           setCurrentNumber((prev) => prev + value);
         }
         break;
       }
       case ButtonType.bracket: {
-        setCalculationsInput((prev) => prev + value);
+        if (currentNumber === '') {
+          setCalculationsInput((prev) => prev + value);
+        } else {
+          setCalculationsInput((prev) => prev + currentNumber + value);
+          setCurrentNumber('');
+        }
+
         break;
       }
     }

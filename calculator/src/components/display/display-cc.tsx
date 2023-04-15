@@ -4,13 +4,13 @@ import { DisplayPropsType } from './display-fc';
 
 class DisplayCC extends Component<DisplayPropsType> {
   render() {
-    const { calculationsInput, setCalculationsInput, result } = this.props;
+    const { calculationsInput, setCalculationsInput, currentNumber, result } = this.props;
 
     return (
       <S.container>
         <S.calculatorInput
           type='text'
-          value={calculationsInput}
+          value={calculationsInput + currentNumber}
           onChange={(e) => setCalculationsInput(e.target.value)}
         />
         <div>{result}</div>
