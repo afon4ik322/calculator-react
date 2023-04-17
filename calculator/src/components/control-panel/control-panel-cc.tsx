@@ -1,8 +1,10 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { StateType } from '../../store';
-import { clearHistory } from '../../store/slices/history-slice';
-import { ThemeStateType, switchTheme } from '../../store/slices/theme-slice';
+
+import { StateType } from '@store';
+import { clearHistory } from '@store/slices/history-slice';
+import { ThemeStateType, switchTheme } from '@store/slices/theme-slice';
+
 import S from './control-panel.styled';
 
 interface ControlPanelPropsType {

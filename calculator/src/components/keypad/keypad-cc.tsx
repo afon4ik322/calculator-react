@@ -1,7 +1,7 @@
 import { Component } from 'react';
+import { BUTTONS } from '@constants/constants';
+import CalculatorButtonCC from '@components/button/button-cc';
 import S from './keypad.styled';
-import { BUTTONS } from '../../constants/constants';
-import CalculatorButtonCC from '../button/button-cc';
 
 interface KeypadPropsType {
   keypadHandler: (value: string, type: string) => void;

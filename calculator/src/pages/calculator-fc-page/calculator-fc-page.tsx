@@ -1,8 +1,10 @@
-import CalculatorFC from '../../components/calculator/calculator-fc';
-import ErrorBoundary from '../../components/error-boundary/error-boundary';
-import { LinkAddress } from '../../constants/constants';
+import { FC } from 'react';
 
-const CalculatorFCPage = () => {
+import { LinkAddress } from '@constants/constants';
+import CalculatorFC from '@components/calculator/calculator-fc';
+import ErrorBoundary from '@components/error-boundary/error-boundary';
+
+const CalculatorFCPage: FC = () => {
   return (
     <ErrorBoundary>
       <h2 data-test-id={`${LinkAddress.homefc}-page`}>Calculator FC</h2>

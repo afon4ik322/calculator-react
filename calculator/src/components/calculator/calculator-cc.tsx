@@ -1,12 +1,14 @@
 import { Component } from 'react';
-import S from './calculator.styled';
-import DisplayCC from '../display/display-cc';
-import KeypadCC from '../keypad/keypad-cc';
-import HistoryCC from '../history/history-cc';
-import { ButtonType, OPERATORS } from '../../constants/constants';
-import { calculateResult } from '../../utils/calculate';
-import { addHistory } from '../../store/slices/history-slice';
 import { connect } from 'react-redux';
+
+import { ButtonType, OPERATORS } from '@constants/constants';
+import { calculateResult } from '@utils/calculate';
+import { addHistory } from '@store/slices/history-slice';
+import DisplayCC from '@components/display/display-cc';
+import KeypadCC from '@components/keypad/keypad-cc';
+import HistoryCC from '@components/history/history-cc';
+
+import S from './calculator.styled';
 
 const mapDispatchToProps = {
   addHistory,

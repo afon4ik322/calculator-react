@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from '../../store';
-import { clearHistory } from '../../store/slices/history-slice';
-import { switchTheme } from '../../store/slices/theme-slice';
+import { useAppDispatch, useAppSelector } from '@store';
+import { clearHistory } from '@store/slices/history-slice';
+import { switchTheme } from '@store/slices/theme-slice';
 import S from './control-panel.styled';
 
 const ControlPanelFC = () => {

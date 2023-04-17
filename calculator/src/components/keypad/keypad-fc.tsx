@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { BUTTONS } from '../../constants/constants';
-import CalculatorButtonFC from '../button/button-fc';
+import { BUTTONS } from '@constants/constants';
+import CalculatorButtonFC from '@components/button/button-fc';
 import S from './keypad.styled';
 
 interface KeypadPropsType {

@@ -1,4 +1,4 @@
-import { BRACKETS, ErrorMessage, NUMBERS, OPERATORS } from '../constants/constants';
+import { BRACKETS, ErrorMessage, NUMBERS, OPERATORS } from '@constants/constants';
 
 export const calculateResult = (
   input: string,

@@ -1,5 +1,5 @@
 import { ThemeProps, createGlobalStyle, css } from 'styled-components';
-import { ThemeType } from './theme';
+import { ThemeType } from '@styles/theme';
 
 export const styles = {
   button: css`

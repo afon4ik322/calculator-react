@@ -1,4 +1,4 @@
-import { LinkAddress, LinkName } from '../../constants/constants';
+import { LinkAddress, LinkName } from '@constants/constants';
 import S from './header.styled';
 
 const Header = () => {

@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import DisplayFC from '../display/display-fc';
-import HistoryFC from '../history/history-fc';
-import KeypadFC from '../keypad/keypad-fc';
+
+import { ButtonType, OPERATORS } from '@constants/constants';
+import { calculateResult } from '@utils/calculate';
+import { addHistory } from '@store/slices/history-slice';
+import { useAppDispatch } from '@store';
+import DisplayFC from '@components/display/display-fc';
+import HistoryFC from '@components/history/history-fc';
+import KeypadFC from '@components/keypad/keypad-fc';
+
 import S from './calculator.styled';
-import ErrorBoundary from '../error-boundary/error-boundary';
-import { ButtonType, OPERATORS } from '../../constants/constants';
-import { calculateResult } from '../../utils/calculate';
-import { addHistory } from '../../store/slices/history-slice';
-import { useAppDispatch } from '../../store';
 
 const CalculatorFC = () => {
   const [result, setResult] = useState<string>('0');

@@ -1,9 +1,11 @@
 import { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import S from './history.styled';
 import { connect } from 'react-redux';
-import { HistoryStateType } from '../../store/slices/history-slice';
-import { StateType } from '../../store';
+import { v4 as uuidv4 } from 'uuid';
+
+import { HistoryStateType } from '@store/slices/history-slice';
+import { StateType } from '@store';
+
+import S from './history.styled';
 
 interface HistoryPropsType {
   history: HistoryStateType;

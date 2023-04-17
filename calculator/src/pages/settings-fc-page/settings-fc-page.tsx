@@ -1,7 +1,9 @@
-import ControlPanelFC from '../../components/control-panel/control-panel-fc';
-import { LinkAddress } from '../../constants/constants';
+import { FC } from 'react';
 
-const SettingsFCPage = () => {
+import { LinkAddress } from '@constants/constants';
+import ControlPanelFC from '@components/control-panel/control-panel-fc';
+
+const SettingsFCPage: FC = () => {
   return (
     <>
       <h2 data-test-id={`${LinkAddress.settingsfc}-page`}>Settings FC</h2>
