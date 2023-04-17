@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { ButtonType, OPERATORS } from '@constants/constants';
-import { calculateResult } from '@utils/calculate';
+import { calculateResult } from '@utils/calculate-result';
 import { addHistory } from '@store/slices/history-slice';
 import DisplayCC from '@components/display/display-cc';
 import KeypadCC from '@components/keypad/keypad-cc';

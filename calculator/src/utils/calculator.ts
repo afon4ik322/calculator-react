@@ -1,51 +1,15 @@
-import { BRACKETS, ErrorMessage, NUMBERS, OPERATORS } from '@constants/constants';
+import { ErrorMessage, OPERATORS } from '@constants/constants';
+import { parseString } from './parse-string';
 
-export const calculateResult = (
-  input: string,
-  setInput: (str: string) => void,
-  setResult: (str: string) => void,
-  addHistory: (str: string) => void,
-  setError: (err: any) => void
-) => {
-  try {
-    setResult(calculateResultFunc(input));
-    addHistory(`${input} = ${calculateResultFunc(input)}`);
-  } catch (e) {
-    setError(e);
-  } finally {
-    setInput('');
-  }
-};
+//PARSE STRING, CALC RESULT, ROUND RESULT
+export const calculateResultFunc = (str: string): string => {
+  const arr = parseString(str);
+  const calculated = calculateByOperators(arr);
+  const result = Math.round(calculated * 1000) / 1000;
 
-//PARSE STRING
-const parseString = (str: string): Array<string | number> => {
-  const arr = str.split('');
+  if (Number.isNaN(result)) throw new Error(ErrorMessage.calculationError);
 
-  arr.forEach((item) => {
-    if (!'1234567890()+-*÷/%.'.includes(item)) throw new Error(ErrorMessage.unsupported);
-  });
-
-  if (!(OPERATORS.findIndex((el) => el === arr[arr.length - 1]) === -1)) {
-    throw new Error(ErrorMessage.operator);
-  }
-
-  const modifiedArr = [];
-  let currentNumber = '';
-  for (let i = 0; i < arr.length; i++) {
-    if (!(NUMBERS.findIndex((el) => el === arr[i]) === -1) || arr[i] === '.') {
-      currentNumber += arr[i];
-    }
-    if (!(OPERATORS.findIndex((el) => el === arr[i]) === -1) || !(BRACKETS.findIndex((el) => el === arr[i]) === -1)) {
-      if (currentNumber !== '') {
-        modifiedArr.push(Number(currentNumber));
-        currentNumber = '';
-      }
-
-      modifiedArr.push(arr[i]);
-    }
-  }
-  modifiedArr.push(Number(currentNumber));
-  return modifiedArr;
+  return result.toString();
 };
 
 //OPERATIONS (fix 0.30000000000000004)
@@ -173,15 +137,3 @@ function calculateIntermediateResult(arr: Array<string | number>): number {
 
   return result;
 }
-
-//PARSE STRING, CALC RESULT, ROUND RESULT
-
-const calculateResultFunc = (str: string): string => {
-  const arr = parseString(str);
-  const calculated = calculateByOperators(arr);
-  const result = Math.round(calculated * 1000) / 1000;
-
-  if (Number.isNaN(result)) throw new Error(ErrorMessage.calculationError);
-
-  return result.toString();
-};

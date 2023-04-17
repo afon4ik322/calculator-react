@@ -1,4 +1,4 @@
-import { navigationTest, changeThemeTest, historyTest, keypadTest, arithmeticTest } from './functions.cy';
+import { navigationTest, changeThemeTest, historyTest, keypadTest, arithmeticTest } from './utils/functions.cy';
 
 describe('General Tests', () => {
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { ButtonType, OPERATORS } from '@constants/constants';
-import { calculateResult } from '@utils/calculate';
+import { calculateResult } from '@utils/calculate-result';
 import { addHistory } from '@store/slices/history-slice';
 import { useAppDispatch } from '@store';
 import DisplayFC from '@components/display/display-fc';
