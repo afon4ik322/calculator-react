@@ -1,7 +1,10 @@
 import { BRACKETS, ErrorMessage, NUMBERS, OPERATORS } from '@constants/constants';
 
 export const parseString = (str: string): Array<string | number> => {
-  const arr = str.split('');
+  const arr = str
+    .trim()
+    .split('')
+    .filter((el) => el !== ' ');
 
   arr.forEach((item) => {
     if (!'1234567890()+-*÷/%.'.includes(item)) throw new Error(ErrorMessage.unsupported);

@@ -63,7 +63,6 @@ class Calculator {
   commands: Command[] = [];
 
   execute(command: Command): number {
-    console.log(this.current, this.commands);
     this.current = command.execute(command.value, command.current);
     command.setUndo();
     this.commands.push(command);
