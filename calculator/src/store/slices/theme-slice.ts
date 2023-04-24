@@ -1,23 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { darkTheme, lightTheme, ThemeType } from '@styles/theme';
+import { darkTheme, lightTheme, ThemeNameType, ThemeType } from '@styles/theme';
 
 export interface ThemeStateType {
-  themeName: 'light' | 'dark';
+  themeName: ThemeNameType;
   theme: ThemeType;
 }
 
-const initialState: ThemeStateType = {
-  themeName: 'light',
-  theme: lightTheme,
+const themeNames: ThemeNameType[] = ['dark', 'light'];
+
+const getInitialState = (): ThemeStateType => {
+  let themeName = localStorage.getItem('themeName') as ThemeNameType;
+
+  if (!themeNames.includes(themeName)) {
+    themeName = 'light';
+  }
+  const theme = themeName === 'dark' ? darkTheme : lightTheme;
+
+  return {
+    themeName,
+    theme,
+  };
 };
 
 const themeSlice = createSlice({
   name: 'theme',
-  initialState,
+  initialState: getInitialState(),
   reducers: {
     switchTheme(state, action) {
       state.themeName = action.payload;
       state.theme = state.themeName === 'light' ? lightTheme : darkTheme;
+      localStorage.setItem('themeName', state.themeName);
     },
   },
 });
