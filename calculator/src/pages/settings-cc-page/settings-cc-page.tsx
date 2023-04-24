@@ -1,7 +1,6 @@
 import { Component } from 'react';
-
-import { LinkAddress } from '@constants/constants';
 import ControlPanelCC from '@components/control-panel/control-panel-cc';
+import { LinkAddress } from '@constants/constants';
 
 class SettingsCCPage extends Component {
   render() {

@@ -1,12 +1,11 @@
 import { useState } from 'react';
-
-import { ButtonType, OPERATORS } from '@constants/constants';
-import { calculateResult } from '@utils/calculate-result';
-import { addHistory } from '@store/slices/history-slice';
-import { useAppDispatch } from '@store';
 import DisplayFC from '@components/display/display-fc';
 import HistoryFC from '@components/history/history-fc';
 import KeypadFC from '@components/keypad/keypad-fc';
+import { ButtonType, OPERATORS } from '@constants/constants';
+import { useAppDispatch } from '@store';
+import { addHistory } from '@store/slices/history-slice';
+import { calculateResult } from '@utils/calculate-result';
 
 import S from './calculator.styled';
 

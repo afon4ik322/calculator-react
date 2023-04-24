@@ -1,12 +1,11 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { ButtonType, OPERATORS } from '@constants/constants';
-import { calculateResult } from '@utils/calculate-result';
-import { addHistory } from '@store/slices/history-slice';
 import DisplayCC from '@components/display/display-cc';
-import KeypadCC from '@components/keypad/keypad-cc';
 import HistoryCC from '@components/history/history-cc';
+import KeypadCC from '@components/keypad/keypad-cc';
+import { ButtonType, OPERATORS } from '@constants/constants';
+import { addHistory } from '@store/slices/history-slice';
+import { calculateResult } from '@utils/calculate-result';
 
 import S from './calculator.styled';
 
@@ -127,7 +126,7 @@ class CalculatorCC extends Component<CalculatorCCProps, CalculatorCCState> {
           break;
         case ButtonType.dot: {
           if (currentNumber === '') {
-            setCurrentNumber(currentNumber + '0.');
+            setCurrentNumber(`${currentNumber}0.`);
           } else if (!currentNumber.includes('.')) {
             this.setState((prev) => ({
               currentNumber: prev.currentNumber + value,

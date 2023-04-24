@@ -1,7 +1,8 @@
 import { ErrorMessage, OPERATORS } from '@constants/constants';
+
 import { parseString } from './parse-string';
 
-//PARSE STRING, CALC RESULT, ROUND RESULT
+// PARSE STRING, CALC RESULT, ROUND RESULT
 export const calculateResultFunc = (str: string): string => {
   const arr = parseString(str);
   const calculator = new Calculator();
@@ -13,7 +14,7 @@ export const calculateResultFunc = (str: string): string => {
   return result.toString();
 };
 
-//OPERATIONS (fix 0.30000000000000004)
+// OPERATIONS (fix 0.30000000000000004)
 const addition = (x: number, y: number) => (x * 1000 + y * 1000) / 1000;
 const subtraction = (x: number, y: number) => (x * 1000 - y * 1000) / 1000;
 const multiplication = (x: number, y: number) => (1000 * x * y) / 1000;
@@ -72,6 +73,7 @@ class Calculator {
 
   undo(): number {
     const command = this.commands.pop();
+
     if (command) this.current = command.undoValue;
 
     return this.current;
@@ -80,7 +82,7 @@ class Calculator {
 
 // CALCULATE BY OPERATORS
 const calculateByOperators = (arr: Array<string | number>, calculator: Calculator) => {
-  let stack = [...arr];
+  const stack = [...arr];
 
   // BRACKETS ()
   if (!(stack.findIndex((el) => el === '(') === -1)) {
@@ -114,13 +116,15 @@ function bracketOperations(stack: Array<string | number>, calculator: Calculator
     if (el === '(') {
       acc.push({ el, i });
     }
+
     return acc;
   }, initialReduceValueOpen);
 
-  const closeBrackets: Array<InitialReduceValue> = stack.reduce((acc, el, i) => {
+  const closeBrackets: InitialReduceValue[] = stack.reduce((acc, el, i) => {
     if (el === ')') {
       acc.push({ el, i });
     }
+
     return acc;
   }, initialReduceValueClose);
 
@@ -132,7 +136,9 @@ function bracketOperations(stack: Array<string | number>, calculator: Calculator
       if (closeBrackets[i].i > openBrackets[j].i) {
         const arr = stack.slice(openBrackets[j].i + 1, closeBrackets[i].i);
         const num = calculateIntermediateResult(priorityOperations(arr, calculator), calculator);
+
         stack.splice(openBrackets[j].i, closeBrackets[i].i - openBrackets[j].i + 1, num);
+
         // ПОВТОРНЫЙ ПОИСК СКОБОК ~ РЕКУРСИЯ
         return bracketOperations(stack, calculator);
       }
@@ -150,7 +156,8 @@ function priorityOperations(stack: Array<string | number>, calculator: Calculato
   }
   for (let i = 0; i < stack.length; i++) {
     if (!(['*', '÷', '/', '%'].findIndex((el) => el === stack[i]) === -1)) {
-      let num = calculateIntermediateResult([stack[i - 1], stack[i], stack[i + 1]], calculator);
+      const num = calculateIntermediateResult([stack[i - 1], stack[i], stack[i + 1]], calculator);
+
       stack.splice(i - 1, 3, num);
       i -= 2;
     }
@@ -159,11 +166,12 @@ function priorityOperations(stack: Array<string | number>, calculator: Calculato
   return stack;
 }
 
-//CALCULATE INTERMEDIATE RESULT
+// CALCULATE INTERMEDIATE RESULT
 function calculateIntermediateResult(arr: Array<string | number>, calculator: Calculator): number {
   // ПРОВЕРКА НА 1 ЧИСЛО И МИНУС
   if (arr[0] === '-') {
-    let item = arr[0] + arr[1];
+    const item = arr[0] + arr[1];
+
     arr.splice(0, 1, item);
   }
 
@@ -171,7 +179,8 @@ function calculateIntermediateResult(arr: Array<string | number>, calculator: Ca
 
   for (let i = 1; i < arr.length; i++) {
     if (!(OPERATORS.findIndex((el) => el === arr[i]) === -1)) {
-      let current = Number(arr[i + 1]);
+      const current = Number(arr[i + 1]);
+
       switch (arr[i]) {
         case '+':
           result = calculator.execute(AdditionCommand(result, current));

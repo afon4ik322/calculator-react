@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { DisplayPropsType } from '@components/display/display-fc';
+
 import S from './display.styled';
 
 class DisplayCC extends Component<DisplayPropsType> {

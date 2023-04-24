@@ -1,23 +1,27 @@
 import { LinkAddress, LinkName } from '@constants/constants';
+
 import S from './header.styled';
 
 const Header = () => {
+  const headerLinks: Array<{
+    address: LinkAddress;
+    title: LinkName;
+  }> = [
+    { address: LinkAddress.homefc, title: LinkName.homefc },
+    { address: LinkAddress.homecc, title: LinkName.homecc },
+    { address: LinkAddress.settingsfc, title: LinkName.settingsfc },
+    { address: LinkAddress.settingscc, title: LinkName.settingscc },
+  ];
+
   return (
     <S.container>
       <S.title>Calculator App</S.title>
       <S.linksList>
-        <S.link to={'/' + LinkAddress.homefc} data-test-id={LinkAddress.homefc}>
-          {LinkName.homefc}
-        </S.link>
-        <S.link to={'/' + LinkAddress.homecc} data-test-id={LinkAddress.homecc}>
-          {LinkName.homecc}
-        </S.link>
-        <S.link to={'/' + LinkAddress.settingsfc} data-test-id={LinkAddress.settingsfc}>
-          {LinkName.settingsfc}
-        </S.link>
-        <S.link to={'/' + LinkAddress.settingscc} data-test-id={LinkAddress.settingscc}>
-          {LinkName.settingscc}
-        </S.link>
+        {headerLinks.map((link) => (
+          <S.link to={`/${link.address}`} data-test-id={link.address}>
+            {link.title}
+          </S.link>
+        ))}
       </S.linksList>
     </S.container>
   );

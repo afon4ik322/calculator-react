@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useAppSelector } from '@store';
+import { v4 as uuidv4 } from 'uuid';
+
 import S from './history.styled';
 
 const HistoryFC: FC = () => {

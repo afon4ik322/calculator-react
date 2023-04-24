@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import { BUTTONS } from '@constants/constants';
 import CalculatorButtonCC from '@components/button/button-cc';
+import { BUTTONS } from '@constants/constants';
+
 import S from './keypad.styled';
 
 interface KeypadPropsType {
@@ -10,6 +11,7 @@ interface KeypadPropsType {
 class KeypadCC extends Component<KeypadPropsType> {
   render() {
     const { keypadHandler } = this.props;
+
     return (
       <S.container>
         {BUTTONS.map((button) => (

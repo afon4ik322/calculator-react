@@ -1,9 +1,8 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-
-import { HistoryStateType } from '@store/slices/history-slice';
 import { StateType } from '@store';
+import { HistoryStateType } from '@store/slices/history-slice';
+import { v4 as uuidv4 } from 'uuid';
 
 import S from './history.styled';
 
@@ -11,11 +10,9 @@ interface HistoryPropsType {
   history: HistoryStateType;
 }
 
-const mapStateToProps = (state: StateType) => {
-  return {
-    history: state.history,
-  };
-};
+const mapStateToProps = (state: StateType) => ({
+  history: state.history,
+});
 
 class HistoryCC extends Component<HistoryPropsType> {
   render() {

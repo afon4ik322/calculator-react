@@ -1,9 +1,8 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { StateType } from '@store';
 import { clearHistory } from '@store/slices/history-slice';
-import { ThemeStateType, switchTheme } from '@store/slices/theme-slice';
+import { switchTheme, ThemeStateType } from '@store/slices/theme-slice';
 
 import S from './control-panel.styled';
 
@@ -13,11 +12,9 @@ interface ControlPanelPropsType {
   theme: ThemeStateType;
 }
 
-const mapStateToProps = (state: StateType) => {
-  return {
-    theme: state.theme,
-  };
-};
+const mapStateToProps = (state: StateType) => ({
+  theme: state.theme,
+});
 
 const mapDispatchToProps = {
   clearHistory,
@@ -33,8 +30,8 @@ class ControlPanelCC extends Component<ControlPanelPropsType> {
       <S.container>
         <label htmlFor='theme-select'>Choose a theme:</label>
         <S.select name='' id='theme-select' value={themeName} onChange={(e) => switchTheme(e.target.value)}>
-          <option value={'light'}>Light</option>
-          <option value={'dark'}>Dark</option>
+          <option value='light'>Light</option>
+          <option value='dark'>Dark</option>
         </S.select>
         <S.button onClick={() => clearHistory()}>Clear All History</S.button>
       </S.container>

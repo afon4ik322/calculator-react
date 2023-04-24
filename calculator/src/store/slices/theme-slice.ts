@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ThemeType, darkTheme, lightTheme } from '@styles/theme';
+import { darkTheme, lightTheme, ThemeType } from '@styles/theme';
 
 export interface ThemeStateType {
   themeName: 'light' | 'dark';

@@ -1,8 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-
-import { HistoryStateType, history } from '@store/slices/history-slice';
-import { ThemeStateType, theme } from '@store/slices/theme-slice';
+import { configureStore } from '@reduxjs/toolkit';
+import { history, HistoryStateType } from '@store/slices/history-slice';
+import { theme, ThemeStateType } from '@store/slices/theme-slice';
 
 export interface StateType {
   history: HistoryStateType;
