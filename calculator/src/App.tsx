@@ -1,14 +1,13 @@
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
+import Layout from '@components/layout/layout';
+import { LinkAddress } from '@constants/constants';
+import CalculatorCCPage from '@pages/calculator-cc-page/calculator-cc-page';
+import CalculatorFCPage from '@pages/calculator-fc-page/calculator-fc-page';
+import SettingsCCPage from '@pages/settings-cc-page/settings-cc-page';
+import SettingsFCPage from '@pages/settings-fc-page/settings-fc-page';
+import { useAppSelector } from '@store';
+import { GlobalStyle } from '@styles/global-style';
 import { ThemeProvider } from 'styled-components';
-
-import Layout from './components/layout/layout';
-import { LinkAddress } from './constants/constants';
-import CalculatorCCPage from './pages/calculator-cc-page/calculator-cc-page';
-import CalculatorFCPage from './pages/calculator-fc-page/calculator-fc-page';
-import SettingsCCPage from './pages/settings-cc-page/settings-cc-page';
-import SettingsFCPage from './pages/settings-fc-page/settings-fc-page';
-import { GlobalStyle } from './styles/global-style';
-import { useAppSelector } from './store';
 
 function App() {
   const theme = useAppSelector((state) => state.theme.theme);

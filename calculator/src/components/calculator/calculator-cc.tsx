@@ -6,6 +6,7 @@ import KeypadCC from '@components/keypad/keypad-cc';
 import { ButtonType, OPERATORS } from '@constants/constants';
 import { addHistory } from '@store/slices/history-slice';
 import { calculateResult } from '@utils/calculate-result';
+import { validCharacters } from '@utils/parse-string';
 
 import S from './calculator.styled';
 
@@ -55,7 +56,9 @@ class CalculatorCC extends Component<CalculatorCCProps, CalculatorCCState> {
     };
 
     const onInputChange = (str: string) => {
-      this.setState({ currentNumber: '', calculationsInput: str });
+      const arr = str.split('').filter((el) => validCharacters.includes(el));
+
+      this.setState({ currentNumber: '', calculationsInput: arr.join('') });
     };
 
     const keypadHandler = (value: string, type: string) => {
@@ -98,7 +101,7 @@ class CalculatorCC extends Component<CalculatorCCProps, CalculatorCCState> {
 
               break;
             case 'C':
-              this.setState((prev) => ({
+              this.setState(() => ({
                 currentNumber: '',
                 calculationsInput: '',
               }));

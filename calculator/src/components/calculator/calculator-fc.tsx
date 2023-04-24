@@ -1,11 +1,11 @@
 import { useState } from 'react';
+import { keypadHandler as keypadHandlerFunc } from '@components/calculator/keypad-handler-fc';
 import DisplayFC from '@components/display/display-fc';
 import HistoryFC from '@components/history/history-fc';
 import KeypadFC from '@components/keypad/keypad-fc';
-import { ButtonType, OPERATORS } from '@constants/constants';
 import { useAppDispatch } from '@store';
 import { addHistory } from '@store/slices/history-slice';
-import { calculateResult } from '@utils/calculate-result';
+import { validCharacters } from '@utils/parse-string';
 
 import S from './calculator.styled';
 
@@ -15,76 +15,28 @@ const CalculatorFC = () => {
   const [currentNumber, setCurrentNumber] = useState<string>('');
   const [error, setError] = useState<string>('');
   const dispatch = useAppDispatch();
+  const addHistoryDispatched = (str: string) => dispatch(addHistory(str));
 
   const onInputChange = (str: string) => {
+    const arr = str.split('').filter((el) => validCharacters.includes(el));
+
     setCurrentNumber('');
-    setCalculationsInput(str);
+    setCalculationsInput(arr.join(''));
   };
 
-  const keypadHandler = (value: string, type: string) => {
-    switch (type) {
-      case ButtonType.number:
-        result && setResult('');
-        setCurrentNumber((prev) => prev + value);
-        break;
-      case ButtonType.operator: {
-        setCalculationsInput((prev) => prev + currentNumber);
-        setCurrentNumber('');
-        if (!(calculationsInput.length === 0) || !(currentNumber.length === 0)) {
-          !OPERATORS.some((el) => el === calculationsInput[calculationsInput.length - 1] && currentNumber.length === 0)
-            ? setCalculationsInput((prev) => prev + value)
-            : setCalculationsInput((prev) => prev.slice(0, -1) + value);
-        }
-        break;
-      }
-      case ButtonType.operation:
-        switch (value) {
-          case 'CE':
-            currentNumber.length > 0
-              ? setCurrentNumber((prev) => prev.slice(0, -1))
-              : setCalculationsInput((prev) => prev.slice(0, -1));
-            break;
-          case 'C':
-            setCurrentNumber('');
-            setCalculationsInput('');
-            break;
-          case '=':
-            if (!((calculationsInput + currentNumber).length === 0)) {
-              calculateResult(
-                calculationsInput + currentNumber,
-                setCalculationsInput,
-                setResult,
-                (str: string) => dispatch(addHistory(str)),
-                setError
-              );
-              setCurrentNumber('');
-            }
-            break;
-          case '±':
-            setCurrentNumber((prev) => (prev.length > 0 && !(prev[1] === '-') ? `(-${prev})` : prev.slice(2, -1)));
-            break;
-        }
-        break;
-      case ButtonType.dot: {
-        if (currentNumber === '') {
-          setCurrentNumber('0.');
-        } else if (!currentNumber.includes('.')) {
-          setCurrentNumber((prev) => prev + value);
-        }
-        break;
-      }
-      case ButtonType.bracket: {
-        if (currentNumber === '') {
-          setCalculationsInput((prev) => prev + value);
-        } else {
-          setCalculationsInput((prev) => prev + currentNumber + value);
-          setCurrentNumber('');
-        }
-
-        break;
-      }
-    }
-  };
+  const keypadHandler = (value: string, type: string) =>
+    keypadHandlerFunc(
+      value,
+      type,
+      calculationsInput,
+      setCalculationsInput,
+      currentNumber,
+      setCurrentNumber,
+      result,
+      setResult,
+      setError,
+      addHistoryDispatched
+    );
 
   if (error) throw new Error(error);
 

@@ -14,23 +14,39 @@ const mapStateToProps = (state: StateType) => ({
   history: state.history,
 });
 
-class HistoryCC extends Component<HistoryPropsType> {
+class HistoryCC extends Component<HistoryPropsType, { isShowHistory: boolean }> {
+  constructor(props: HistoryPropsType) {
+    super(props);
+    this.state = {
+      isShowHistory: false,
+    };
+  }
   render() {
     const { history } = this.props.history;
+    const { isShowHistory } = this.state;
+
+    const historyItems = (array: string[]) =>
+      array.map((historyItem) => (
+        <li key={uuidv4()} data-test-id='history-item'>
+          {historyItem}
+        </li>
+      ));
 
     return (
       <>
-        <S.header>History</S.header>
+        <S.headerContainer>
+          <S.header>History</S.header>
+          <S.button
+            type='button'
+            onClick={() => this.setState((prev) => ({ isShowHistory: !prev.isShowHistory }))}
+            disabled={history.length < 16}
+          >
+            {isShowHistory ? 'Show 15 last operations' : 'Show all operations'}
+          </S.button>
+        </S.headerContainer>
+
         <S.list data-test-id='history-list'>
-          {history.length ? (
-            history.map((historyItem: string) => (
-              <li key={uuidv4()} data-test-id='history-item'>
-                {historyItem}
-              </li>
-            ))
-          ) : (
-            <li>History is empty</li>
-          )}
+          {history.length ? historyItems(isShowHistory ? history : history.slice(0, 15)) : <li>History is empty</li>}
         </S.list>
       </>
     );

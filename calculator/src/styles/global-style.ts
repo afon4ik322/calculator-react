@@ -18,6 +18,15 @@ export const styles = {
     &:focus {
       background-color: ${({ theme }) => theme.blue};
     }
+    &:disabled {
+      border: 1px solid ${({ theme }) => theme.gray[1]};
+      background-color: ${({ theme }) => theme.gray[0]};
+      color: ${({ theme }) => theme.gray[1]};
+      cursor: default;
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 12px;
+    }
   `,
 };
 
@@ -35,5 +44,15 @@ export const GlobalStyle = createGlobalStyle`
   }
   main {
     margin-top: 60px;
+  }
+  @media screen and (max-width:768px){
+    body {
+      font-size: 0.9rem;
+    }
+  }
+  @media screen and (max-width:640px){
+    body {
+      font-size: 0.8rem;
+    }
   }
 `;

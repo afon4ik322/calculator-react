@@ -12,8 +12,8 @@ const historySlice = createSlice({
   name: 'history',
   initialState,
   reducers: {
-    addHistory: (state, action) => {
-      state.history.unshift(action.payload);
+    addHistory: (state, { payload }: { type: string; payload: string }) => {
+      state.history.unshift(payload);
     },
     clearHistory: (state) => {
       state.history = [];

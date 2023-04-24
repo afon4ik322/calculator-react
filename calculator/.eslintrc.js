@@ -39,6 +39,8 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': 'warn',
     '@typescript-eslint/no-inferrable-types': 'warn',
+    complexity: ['warn', 30],
+    'no-negated-condition': 'off',
     'react/jsx-fragments': 'off',
     'no-param-reassign': [
       2,
