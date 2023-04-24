@@ -1,16 +1,16 @@
 import { Component } from 'react';
-import { CalculatorButtonProps } from '@components/button/button-fc';
+import C from '@styles';
 
-import S from './button.styled';
+import { CalculatorButtonProps } from './button-types';
 
 class CalculatorButtonCC extends Component<CalculatorButtonProps> {
   render() {
     const { value, type, keypadHandler } = this.props;
 
     return (
-      <S.button onClick={() => keypadHandler(value, type)} data-test-id='calculator-button'>
+      <C.button onClick={() => keypadHandler(value, type)} data-test-id='calculator-button'>
         {value}
-      </S.button>
+      </C.button>
     );
   }
 }

@@ -18,6 +18,8 @@ const S = {
     color: ${({ theme }) => theme.text};
     background-color: transparent;
   `,
+  label: styled.label``,
+  option: styled.option``,
 };
 
 export default S;

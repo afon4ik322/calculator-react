@@ -1,18 +1,6 @@
 import { ErrorMessage, OPERATORS } from '@constants/constants';
 
-import { parseString } from './parse-string';
-
-// PARSE STRING, CALC RESULT, ROUND RESULT
-export const calculateResultFunc = (str: string): string => {
-  const arr = parseString(str);
-  const calculator = new Calculator();
-  const calculated = calculateByOperators(arr, calculator);
-  const result = Math.round(calculated * 1000) / 1000;
-
-  if (Number.isNaN(result)) throw new Error(ErrorMessage.calculationError);
-
-  return result.toString();
-};
+import { Calculator, Command } from './command-pattern';
 
 // OPERATIONS (fix 0.30000000000000004)
 const addition = (x: number, y: number) => (x * 1000 + y * 1000) / 1000;
@@ -20,24 +8,6 @@ const subtraction = (x: number, y: number) => (x * 1000 - y * 1000) / 1000;
 const multiplication = (x: number, y: number) => (1000 * x * y) / 1000;
 const division = (x: number, y: number) => x / y;
 const remainder = (x: number, y: number) => x % y;
-
-// COMMAND
-class Command {
-  execute: (x: number, y: number) => number;
-  value: number;
-  current: number;
-  undoValue: number = 0;
-
-  constructor(execute: (x: number, y: number) => number, value: number, current: number) {
-    this.execute = execute;
-    this.value = value;
-    this.current = current;
-  }
-
-  setUndo() {
-    this.undoValue = this.current;
-  }
-}
 
 const AdditionCommand = function (value: number, current: number) {
   return new Command(addition, value, current);
@@ -59,29 +29,8 @@ const RemainderCommand = function (value: number, current: number) {
   return new Command(remainder, value, current);
 };
 
-class Calculator {
-  current = 0;
-  commands: Command[] = [];
-
-  execute(command: Command): number {
-    this.current = command.execute(command.value, command.current);
-    command.setUndo();
-    this.commands.push(command);
-
-    return this.current;
-  }
-
-  undo(): number {
-    const command = this.commands.pop();
-
-    if (command) this.current = command.undoValue;
-
-    return this.current;
-  }
-}
-
 // CALCULATE BY OPERATORS
-const calculateByOperators = (arr: Array<string | number>, calculator: Calculator) => {
+export const calculateByOperators = (arr: Array<string | number>, calculator: Calculator) => {
   const stack = [...arr];
 
   // BRACKETS ()

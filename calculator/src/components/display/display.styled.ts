@@ -22,6 +22,7 @@ const S = {
       color: ${({ theme }) => theme.text};
     }
   `,
+  result: styled.div``,
 };
 
 export default S;

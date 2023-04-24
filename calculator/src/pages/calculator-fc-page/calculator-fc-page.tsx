@@ -2,10 +2,11 @@ import { FC } from 'react';
 import CalculatorFC from '@components/calculator/calculator-fc';
 import ErrorBoundary from '@components/error-boundary/error-boundary';
 import { LinkAddress } from '@constants/constants';
+import C from '@styles';
 
 const CalculatorFCPage: FC = () => (
   <ErrorBoundary>
-    <h2 data-test-id={`${LinkAddress.homefc}-page`}>Calculator FC</h2>
+    <C.pageHeader data-test-id={`${LinkAddress.homefc}-page`}>Calculator FC</C.pageHeader>
     <CalculatorFC />
   </ErrorBoundary>
 );

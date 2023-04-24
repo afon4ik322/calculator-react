@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import { DisplayPropsType } from '@components/display/display-fc';
 
 import S from './display.styled';
+import { DisplayPropsType } from './display-types';
 
 class DisplayCC extends Component<DisplayPropsType> {
   render() {
@@ -15,7 +15,7 @@ class DisplayCC extends Component<DisplayPropsType> {
           onChange={(e) => onInputChange(e.target.value)}
           data-test-id='calculator-input'
         />
-        <div data-test-id='calculator-result'>{result}</div>
+        <S.result data-test-id='calculator-result'>{result}</S.result>
       </S.container>
     );
   }

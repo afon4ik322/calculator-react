@@ -3,10 +3,7 @@ import CalculatorButtonCC from '@components/button/button-cc';
 import { BUTTONS } from '@constants/constants';
 
 import S from './keypad.styled';
-
-interface KeypadPropsType {
-  keypadHandler: (value: string, type: string) => void;
-}
+import { KeypadPropsType } from './keypad-types';
 
 class KeypadCC extends Component<KeypadPropsType> {
   render() {

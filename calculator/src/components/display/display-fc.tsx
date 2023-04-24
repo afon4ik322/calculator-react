@@ -1,13 +1,7 @@
 import { FC } from 'react';
 
 import S from './display.styled';
-
-export interface DisplayPropsType {
-  result: string;
-  calculationsInput: string;
-  currentNumber: string;
-  onInputChange: (str: string) => void;
-}
+import { DisplayPropsType } from './display-types';
 
 const DisplayFC: FC<DisplayPropsType> = ({ result, calculationsInput, currentNumber, onInputChange }) => (
   <S.container>
@@ -17,7 +11,7 @@ const DisplayFC: FC<DisplayPropsType> = ({ result, calculationsInput, currentNum
       onChange={(e) => onInputChange(e.target.value)}
       data-test-id='calculator-input'
     />
-    <div data-test-id='calculator-result'>{result}</div>
+    <S.result data-test-id='calculator-result'>{result}</S.result>
   </S.container>
 );
 

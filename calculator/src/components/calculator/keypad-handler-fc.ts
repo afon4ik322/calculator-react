@@ -1,6 +1,5 @@
 import { ButtonType, OPERATORS } from '@constants/constants';
-
-import { calculateResult } from '../../utils/calculate-result';
+import { calculateResult } from '@utils/calculate-result';
 
 export const keypadHandler = (
   value: string,

@@ -3,10 +3,7 @@ import CalculatorButtonFC from '@components/button/button-fc';
 import { BUTTONS } from '@constants/constants';
 
 import S from './keypad.styled';
-
-interface KeypadPropsType {
-  keypadHandler: (value: string, type: string) => void;
-}
+import { KeypadPropsType } from './keypad-types';
 
 const KeypadFC: FC<KeypadPropsType> = ({ keypadHandler }) => (
   <S.container>

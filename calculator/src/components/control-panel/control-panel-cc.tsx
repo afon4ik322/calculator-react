@@ -28,10 +28,10 @@ class ControlPanelCC extends Component<ControlPanelPropsType> {
 
     return (
       <S.container>
-        <label htmlFor='theme-select'>Choose a theme:</label>
+        <S.label htmlFor='theme-select'>Choose a theme:</S.label>
         <S.select name='' id='theme-select' value={themeName} onChange={(e) => switchTheme(e.target.value)}>
-          <option value='light'>Light</option>
-          <option value='dark'>Dark</option>
+          <S.option value='light'>Light</S.option>
+          <S.option value='dark'>Dark</S.option>
         </S.select>
         <S.button onClick={() => clearHistory()}>Clear All History</S.button>
       </S.container>

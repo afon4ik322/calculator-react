@@ -1,12 +1,13 @@
 import { Component } from 'react';
 import ControlPanelCC from '@components/control-panel/control-panel-cc';
 import { LinkAddress } from '@constants/constants';
+import C from '@styles';
 
 class SettingsCCPage extends Component {
   render() {
     return (
       <>
-        <h2 data-test-id={`${LinkAddress.settingscc}-page`}>Settings CC</h2>
+        <C.pageHeader data-test-id={`${LinkAddress.settingscc}-page`}>Settings CC</C.pageHeader>
         <ControlPanelCC />
       </>
     );

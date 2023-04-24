@@ -1,15 +1,11 @@
-import S from './button.styled';
+import C from '@styles';
 
-export interface CalculatorButtonProps {
-  value: string;
-  type: string;
-  keypadHandler: (value: string, type: string) => void;
-}
+import { CalculatorButtonProps } from './button-types';
 
 const CalculatorButtonFC = ({ value, type, keypadHandler }: CalculatorButtonProps) => (
-  <S.button data-test-id='calculator-button' onClick={() => keypadHandler(value, type)}>
+  <C.button data-test-id='calculator-button' onClick={() => keypadHandler(value, type)}>
     {value}
-  </S.button>
+  </C.button>
 );
 
 export default CalculatorButtonFC;
