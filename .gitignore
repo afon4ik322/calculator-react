@@ -10,6 +10,7 @@
 
 # production
 /calculator/build
+/calculator/dist
 
 # misc
 .DS_Store
