@@ -7,6 +7,9 @@ const S = {
     flex-direction: column;
     gap: 10px;
     width: 300px;
+    @media screen and (max-width: 420px) {
+      width: 200px;
+    }
   `,
   button: styled.button`
     ${styles.button};
